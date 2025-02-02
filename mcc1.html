@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div >
+        <h2>Simple Quiz</h2>
+        <form id="quiz-form">
+            <div class="question">
+                <p>1. What is the capital of France?</p>
+                <input type="radio" name="q1" value="A" onclick="checkAnswer('q1', this)"> A) Paris<br>
+                <input type="radio" name="q1" value="B" onclick="checkAnswer('q1', this)"> B) London<br>
+                <input type="radio" name="q1" value="C" onclick="checkAnswer('q1', this)"> C) Berlin<br>
+                <p class="feedback" id="feedback-q1"></p>
+            </div>
+
+            <div class="question">
+                <p>2. Which planet is known as the Red Planet?</p>
+                <input type="radio" name="q2" value="A" onclick="checkAnswer('q2', this)"> A) Mars<br>
+                <input type="radio" name="q2" value="B" onclick="checkAnswer('q2', this)"> B) Venus<br>
+                <input type="radio" name="q2" value="C" onclick="checkAnswer('q2', this)"> C) Jupiter<br>
+                <p class="feedback" id="feedback-q2"></p>
+            </div>
+
+            <div class="question">
+                <p>3. Who wrote "Romeo and Juliet"?</p>
+                <input type="radio" name="q3" value="A" onclick="checkAnswer('q3', this)"> A) William Shakespeare<br>
+                <input type="radio" name="q3" value="B" onclick="checkAnswer('q3', this)"> B) Charles Dickens<br>
+                <input type="radio" name="q3" value="C" onclick="checkAnswer('q3', this)"> C) Jane Austen<br>
+                <p class="feedback" id="feedback-q3"></p>
+            </div>
+
+            <button type="button" onclick="showScore()">Submit</button>
+        </form>
+
+        <div id="result" style="display: none;">
+            <h3>Your Score: <span id="score"></span>/3</h3>
+        </div>
+    </div>
+
+    <script>
+        var answers = {
+            q1: "A",
+            q2: "A",
+            q3: "A"
+        };
+
+        function checkAnswer(question, radioButton) {
+            var feedbackElement = document.getElementById("feedback-" + question);
+            if (radioButton.value === answers[question]) {
+                feedbackElement.textContent = "Correct!";
+                feedbackElement.style.color = "green";
+            } else {
+                feedbackElement.textContent = "Incorrect!";
+                feedbackElement.style.color = "red";
+            }
+        }
+
+        function showScore() {
+            var score = 0;
+
+            // Calculate score
+            for (var i = 1; i <= 3; i++) {
+                var userAnswer = document.querySelector(`input[name="q${i}"]:checked`);
+                if (userAnswer.value === answers[`q${i}`]) {
+                    score++;
+                }
+            }
+
+            // Display result
+            document.getElementById('quiz-form').style.display = "none";
+            document.getElementById('result').style.display = "block";
+            document.getElementById('score').textContent = score;
+        }
+    </script>
+</body>
+</html>
